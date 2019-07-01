@@ -9,3 +9,6 @@ Tematy:
 * Operacje CRUD
 * Zapytania HQL, NamedQuery
 
+Teraz przełącz się na gałąź: konfiguracja
+
+git checkout konfiguracja
