@@ -25,7 +25,7 @@ public class App {
         Auto auto2 = new Auto("superhiper",świdrowiatrak, Set.of(projektant2,projektant));
         Auto auto3 = new Auto("czarodziej",abrakadabra, Set.of(projektant));
 
-        // TODO: metoda save(obj) służy do zapisu danych do bazy
+        // TODO: metoda save(obj) służy do zapisu danych do bazy, w następnym zadaniu wykorzystamy inne metody takie jak saveOrUpdate, remove ...
         session.save(auto);
         session.save(auto2);
         session.save(auto3);
