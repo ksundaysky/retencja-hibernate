@@ -9,11 +9,11 @@ import org.hibernate.service.ServiceRegistry;
 import java.util.Properties;
 
 
-public class H2Connector {
+class H2Connector {
 
     private static SessionFactory sessionFactory;
 
-    public static SessionFactory getSessionFactory() {
+    static SessionFactory getSessionFactory() {
         if(sessionFactory == null){
             try {
                 Configuration configuration = new Configuration();
@@ -28,7 +28,9 @@ public class H2Connector {
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
                 configuration.setProperties(settings);
 //            TODO Add entities classes here
-//            configuration.addAnnotatedClass(Encja.class);
+                configuration.addAnnotatedClass(Auto.class);
+                configuration.addAnnotatedClass(Marka.class);
+                configuration.addAnnotatedClass(Projektant.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
