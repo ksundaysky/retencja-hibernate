@@ -1,17 +1,30 @@
-# Konfiguracja - Hibernate
+# Modele/Encje - Hibernate
 
-Połącz się z bazą H2.
+Uzupełnij modele (Auto, Marka, Projektant) tak żeby spełniały poniższy diagram:
 
-W pliku pom.xml przygotowałem już odpowiednią zależność z zakresem uruchomieniowym
+![alt-text](uml.png)
 
-Wystarczy w odpowiedni sposob skonfigurować połączenie w klasie H2Connector
+Użyj adnotacji takich jak:
 
-*Pamiętaj o serwerowym trybie pracy bazy H2 do ktorego moze byc wiecej niz jedno polaczenie*
+1. [Entity](https://docs.oracle.com/javaee/7/api/javax/ws/rs/client/Entity.html) 
+2. [Id](https://docs.oracle.com/javaee/7/api/javax/persistence/Id.html)
+3. [GeneratedValue](https://docs.oracle.com/javaee/7/api/javax/persistence/GeneratedValue.html)
+4. [OneToMany](https://docs.oracle.com/javaee/7/api/javax/persistence/OneToMany.html)
+5. [ManyToMany](https://docs.oracle.com/javaee/7/api/javax/persistence/ManyToMany.html)
+6. [ManyToOne](https://docs.oracle.com/javaee/7/api/javax/persistence/ManyToOne.html)
 
-*Wprowadź poprawnie dane*
+Odsyłacze prowadzą do dokumentacji gdzie są świetne przykłady jak użyć danej adnotacji :) 
 
-Jezeli skonczyles (nie wystąpiło żadne ostrzezenie w logach ) przelacz sie na gałąź encje
+**CZYTAJ UWAŻNIE DOKUMENTACJE**
 
-*Moje rozwązanie konfiguracji na tej gałęzi*
+Po dokończeniu implementacji encji nie zapomnij dodać zaanotowanych klas do konfiguracji (H2Connector)
 
-git checkout encje
+Teraz przejdź do klasy App
+
+Stworzone i połączone są tam wszystkie modele
+
+Wykonaj polecenia oznaczone *TODO*
+
+Jezeli do bazy zostaną zapisane 3 auta razem ze swoimi relacjami możesz przejść dalej:
+
+git checkout manipulacja-danymi
