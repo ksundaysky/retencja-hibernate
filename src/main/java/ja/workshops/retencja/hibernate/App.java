@@ -3,7 +3,10 @@ package ja.workshops.retencja.hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class App {
     public static void main(String[] args) {
@@ -33,14 +36,49 @@ public class App {
         // W tym miejscu kończymy transakcję, spróbuj zakomentować zakończenie transakcji i zaobserwuj zmiany, co znajduje się w bazie
         transaction.commit();
 
-        // TODO: 2019-07-01 Usuń auto o id 1 i  zamień markę samochodu superhiper na abrakadabra :)
+        //  Usuń auto o id 1 i  zamień markę samochodu superhiper na abrakadabra :)
         session = H2Connector.getSessionFactory().getCurrentSession(); //pobieranie obiektu sesji
-        // TODO: 2019-07-01 w tym miejscu rozpocznij transakcję 
-        
-        // usunięcie i modyfikacja
+        // w tym miejscu rozpocznij transakcję
 
-        // TODO: 2019-07-01 zatwierdz zaminy  
+        transaction = session.beginTransaction();
+        ja.workshops.retencja.hibernate.Auto kasacja = new ja.workshops.retencja.hibernate.Auto();
+        kasacja.id=1l;
+        ja.workshops.retencja.hibernate.Auto superhiper = new ja.workshops.retencja.hibernate.Auto("superhiper",abrakadabra, Set.of(projektant2,projektant));
+        superhiper.id=6l;
+        session.delete(kasacja);
+        session.saveOrUpdate(superhiper);
+
+        // zatwierdz zaminy
+        transaction.commit();
+        session=H2Connector.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+//        uncomment to test:
+//        System.out.println(sqlQueryAllProjektanciStartsWithJ(session));
+//        System.out.println(namedQueryAllMarkaStartsWithś(session));
+//        System.out.println(hqlQueryAutoNazwaContainsE(session));
+        session.getTransaction().commit();
 
 
     }
+
+
+
+    // TODO: 2019-07-01 Zaimplementuj sql query, ktore znajdzie wszystkich projektantow ktorych imie zaczyna sie na J
+    private static List<String> sqlQueryAllProjektanciStartsWithJ(Session session){
+       return null;
+    }
+
+    // TODO: 2019-07-02 Napisz zapytanie w języku hql które zwróci wszystkie auta które w nazwie mają literkę e
+    private static List<Auto> hqlQueryAutoNazwaContainsE(Session session){
+        return null;
+    }
+
+    // TODO: 2019-07-02 Zaimplementuj named query w klasie Marka, skorzystaj z adnotacji NamedQueries oraz NamedQuery
+    // TODO: 2019-07-02 z pakietu org.hibernate.annotations
+    // TODO: 2019-07-02 kwerenda powinna zwracać listę wszystkich marek, które rozpoczynają się ś
+    private static List<Marka> namedQueryAllMarkaStartsWithś(Session session){
+        return null;
+    }
+
+
 }
