@@ -5,6 +5,9 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@org.hibernate.annotations.NamedQueries(
+        @org.hibernate.annotations.NamedQuery(name = "wyszukiwanie", query = "from Marka where nazwa like 'ś%'" )
+)
 @Entity
 class Marka {
 

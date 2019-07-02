@@ -24,9 +24,9 @@ public class App {
         Marka świdrowiatrak = new Marka("świdrowiatrak");
         Marka abrakadabra = new Marka("abrakadabra");
 
-        Auto auto = new Auto("A4",marka, Set.of(projektant1,projektant2,projektant));
-        Auto auto2 = new Auto("superhiper",świdrowiatrak, Set.of(projektant2,projektant));
-        Auto auto3 = new Auto("czarodziej",abrakadabra, Set.of(projektant));
+        Auto auto = new Auto("A4", marka, Set.of(projektant1, projektant2, projektant));
+        Auto auto2 = new Auto("superhiper", świdrowiatrak, Set.of(projektant2, projektant));
+        Auto auto3 = new Auto("czarodziej", abrakadabra, Set.of(projektant));
 
         //  metoda save(obj) służy do zapisu danych do bazy, w następnym zadaniu wykorzystamy inne metody takie jak saveOrUpdate, remove ...
         session.save(auto);
@@ -42,15 +42,15 @@ public class App {
 
         transaction = session.beginTransaction();
         ja.workshops.retencja.hibernate.Auto kasacja = new ja.workshops.retencja.hibernate.Auto();
-        kasacja.id=1l;
-        ja.workshops.retencja.hibernate.Auto superhiper = new ja.workshops.retencja.hibernate.Auto("superhiper",abrakadabra, Set.of(projektant2,projektant));
-        superhiper.id=6l;
+        kasacja.id = 1l;
+        ja.workshops.retencja.hibernate.Auto superhiper = new ja.workshops.retencja.hibernate.Auto("superhiper", abrakadabra, Set.of(projektant2, projektant));
+        superhiper.id = 6l;
         session.delete(kasacja);
         session.saveOrUpdate(superhiper);
 
         // zatwierdz zaminy
         transaction.commit();
-        session=H2Connector.getSessionFactory().getCurrentSession();
+        session = H2Connector.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 //        uncomment to test:
 //        System.out.println(sqlQueryAllProjektanciStartsWithJ(session));
@@ -62,22 +62,22 @@ public class App {
     }
 
 
-
-    // TODO: 2019-07-01 Zaimplementuj sql query, ktore znajdzie wszystkich projektantow ktorych imie zaczyna sie na J
-    private static List<String> sqlQueryAllProjektanciStartsWithJ(Session session){
-       return null;
+    // Zaimplementuj sql query, ktore znajdzie wszystkich projektantow ktorych imie zaczyna sie na J
+    private static List<String> sqlQueryAllProjektanciStartsWithJ(Session session) {
+        List<Object> result = session.createSQLQuery("SELECT NAZWA FROM PROJEKTANT WHERE NAZWA LIKE 'J%'").list();
+        return result.stream().map(p -> p.toString()).collect(Collectors.toList());
     }
 
-    // TODO: 2019-07-02 Napisz zapytanie w języku hql które zwróci wszystkie auta które w nazwie mają literkę e
-    private static List<Auto> hqlQueryAutoNazwaContainsE(Session session){
-        return null;
+    // Zaimplementuj named query w klasie Marka, skorzystaj z adnotacji NamedQueries oraz NamedQuery
+    // z pakietu org.hibernate.annotations
+    // kwerenda powinna zwracać listę wszystkich marek, które rozpoczynają się ś
+    private static List<Marka> namedQueryAllMarkaStartsWithś(Session session) {
+        return session.createNamedQuery("wyszukiwanie").getResultList();
     }
 
-    // TODO: 2019-07-02 Zaimplementuj named query w klasie Marka, skorzystaj z adnotacji NamedQueries oraz NamedQuery
-    // TODO: 2019-07-02 z pakietu org.hibernate.annotations
-    // TODO: 2019-07-02 kwerenda powinna zwracać listę wszystkich marek, które rozpoczynają się ś
-    private static List<Marka> namedQueryAllMarkaStartsWithś(Session session){
-        return null;
+    // Napisz zapytanie w języku hql które zwróci wszystkie auta które w nazwie mają literkę e
+    private static List<Auto> hqlQuery(Session session) {
+        return session.createQuery("from Auto a Where nazwa like '%e%' ").getResultList();
     }
 
 
